@@ -30,6 +30,7 @@ let start = Date()
 var animal = Animal()
 
 print("Main Thread", Thread.main.number())
+print("If program doesn't crash, try running it several times")
 
 func threadSafetyForClass1() {
     let queue = DispatchQueue(label: "threadSafety1", attributes: [.concurrent])
@@ -38,10 +39,11 @@ func threadSafetyForClass1() {
             let beforeValue = animal.age
             let newValue = age
             let t = Date().timeIntervalSince(start)
+            
+            // Add random delay
             sleep(arc4random_uniform(2))
+            
             animal = Animal(age, "name\(newValue)")
-            // animal.age = newValue
-            // animal.name = "name\(newValue)"
             print(t, Thread.current.number(), "1", "\(beforeValue) => \(newValue)", separator: ",")
         }
     }
@@ -54,7 +56,10 @@ func threadSafetyForClass2() {
             let beforeValue = animal.age
             let newValue = age
             let t = Date().timeIntervalSince(start)
+            
+            // Add random delay
             sleep(arc4random_uniform(2))
+            
             animal = Animal(age, "name\(newValue)")
             print(t, Thread.current.number(), "2", "\(beforeValue) => \(newValue)", separator: ",")
         }
